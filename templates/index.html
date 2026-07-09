@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPI/CGPA to Percentage Converter</title>
+    <meta name="description" content="Convert SPI and CGPA scores into a percentage using 10-point and 4-point grading scales.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">
+            <span class="brand-mark">%</span>
+            <div>
+                <h1>Grade Percent Converter</h1>
+                <p>Instantly convert SPI or CGPA values into percentage with scale-aware accuracy.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+        <section aria-labelledby="converter-heading" class="panel">
+            <div class="panel-header">
+                <h2 id="converter-heading">Real-time SPI / CGPA conversion</h2>
+                <p class="panel-subtitle">No login required. Just enter your score and choose the grading scale.</p>
+            </div>
+
+            <form class="converter-form" novalidate>
+                <label for="mode-select">Mode</label>
+                <select id="mode-select" aria-label="Conversion mode">
+                    <option value="score">SPI / CGPA (scale-based)</option>
+                    <option value="marks">Marks (obtained / total)</option>
+                </select>
+
+                <div id="score-mode">
+                    <label for="score-input">SPI / CGPA value</label>
+                    <input id="score-input" type="number" step="0.01" min="0" max="10" inputmode="decimal" aria-describedby="score-help" placeholder="Enter your SPI or CGPA">
+                    <p id="score-help" class="helper-text">Enter a score from your transcript and choose the grading scale used by your institution.</p>
+
+                    <label for="scale-select">Grading scale</label>
+                    <select id="scale-select" aria-label="Grading scale">
+                        <option value="10">10-point scale</option>
+                        <option value="4">4-point scale</option>
+                    </select>
+                </div>
+
+                <div id="marks-mode" class="hidden">
+                    <label for="marks-obtained">Marks obtained</label>
+                    <input id="marks-obtained" type="number" step="0.01" min="0" inputmode="decimal" placeholder="Marks obtained">
+
+                    <label for="marks-total">Total marks</label>
+                    <input id="marks-total" type="number" step="0.01" min="1" inputmode="decimal" placeholder="Total marks">
+                </div>
+
+                <div class="result-grid" aria-live="polite" aria-atomic="true">
+                    <article class="result-card">
+                        <h3>Percentage</h3>
+                        <div class="output-row">
+                            <p id="output-percentage" class="output-value">0%</p>
+                            <button id="copy-btn" class="copy-btn" aria-label="Copy percentage">Copy</button>
+                        </div>
+                    </article>
+                    <article class="result-card">
+                        <h3>Formula</h3>
+                        <p id="output-formula" class="output-detail">Percentage = (score / scale) × 100</p>
+                    </article>
+                </div>
+
+                <div class="explanation" aria-labelledby="explanation-heading">
+                    <h3 id="explanation-heading">How it works</h3>
+                    <p>The formula is based on the percentage of the maximum grading scale. For a 10-point scale, the conversion simplifies to <strong>score × 10</strong>. For a 4-point scale, it converts to <strong>score × 25</strong>.</p>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel info-panel" aria-labelledby="accessibility-heading">
+            <h2 id="accessibility-heading">Designed for performance and accessibility</h2>
+            <ul>
+                <li>Modern mobile-first layout with responsive cards.</li>
+                <li>Keyboard-friendly controls and support for assistive technologies.</li>
+                <li>Zero authentication required — open access for students and educators.</li>
+            </ul>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true">Copied to clipboard</div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026. All rights reserved. <span class="dev">Developed by Dhaval</span></p>
+    </footer>
+</body>
+</html>
